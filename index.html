@@ -1,15 +1,29 @@
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <title>REST-API-CLIENT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            
+            @media only screen and (max-width: 620px) {
+              /* For mobile phones: */
+              .main {
+                font-size:10vw;
+              }
+              .body {
+                font-size:5vw;
+              }
+            }
+            </style>
     </head>
 <body>
 
-<h1>Hallo</h1>
+<h1  class="main">DruckerSteuerung</h1>
 
-<p id="relay"><p>
-<button type="button" onclick="send('/togglerelay?relay=LAMP');">schalten</button>
+<p id="relay" class="body"><p>
+<button type="button" onclick="send('/togglerelay?relay=LAMP');" class="body">Drucker schalten</button>
 
 <script>
     function send(command) {
@@ -18,10 +32,10 @@
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
 				if(response.state != null)
-					document.getElementById("relay").innerHTML = "Relais ist " + (response.state? "ein":"aus");
+					document.getElementById("relay").innerHTML = "Drucker ist " + (response.state? "ein":"aus");
             }
         };
-        xhttp.open("GET", "http://10.33.33.109:8080" + command, true);
+        xhttp.open("GET", "http://192.168.2.109:8080" + command, true);
         xhttp.send();
     }
 	
